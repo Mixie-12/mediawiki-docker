@@ -8,6 +8,7 @@ RUN set -eux; \
 		git \
 		librsvg2-bin \
 		imagemagick \
+		composer \
 		# Required for SyntaxHighlighting
 		python3 \
 	; \
