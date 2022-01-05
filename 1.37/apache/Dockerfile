@@ -115,6 +115,6 @@ RUN set -eux; \
 #WORKDIR /var/www/
 #COPY --from=composer /usr/bin/composer /usr/bin/composer
 #RUN composer install
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 
 CMD ["apache2-foreground"]
