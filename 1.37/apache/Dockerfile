@@ -8,6 +8,7 @@ RUN set -eux; \
 		git \
 		librsvg2-bin \
 		imagemagick \
+		composer \
 		# Required for SyntaxHighlighting
 		python3 \
 	; \
@@ -81,10 +82,6 @@ RUN set -eux; \
 	mkdir -p /var/www/data; \
 	chown -R www-data:www-data /var/www/data
 
-# Version
-ENV MEDIAWIKI_MAJOR_VERSION 1.37
-ENV MEDIAWIKI_VERSION 1.37.1
-
 # MediaWiki setup
 RUN set -eux; \
 	fetchDeps=" \
@@ -105,5 +102,13 @@ RUN set -eux; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
+
+RUN adduser -D myuser
+USER myuser
+ENTRYPOINT [“sleep”]
+CMD [“1000”]
+RUN cd /var/www/html/mediawiki; \
+	composer install --no-dev
+
 
 CMD ["apache2-foreground"]
