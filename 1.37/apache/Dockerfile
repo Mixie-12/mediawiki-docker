@@ -1,8 +1,8 @@
 FROM php:7.4-apache
 
-RUN set -eux; \
-	\
-	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+#RUN set -eux; \
+#	\
+#	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 
 # System dependencies
@@ -111,5 +111,10 @@ RUN set -eux; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
+
+#WORKDIR /var/www/
+#COPY --from=composer /usr/bin/composer /usr/bin/composer
+#RUN composer install
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 CMD ["apache2-foreground"]
