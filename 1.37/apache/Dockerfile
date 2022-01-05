@@ -1,6 +1,9 @@
 FROM php:7.4-apache
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+WORKDIR /var/www/html
+RUN composer install
+
 # System dependencies
 RUN set -eux; \
 	\
