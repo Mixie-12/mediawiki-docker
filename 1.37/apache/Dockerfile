@@ -1,9 +1,5 @@
 FROM php:7.4-apache
 
-#RUN set -eux; \
-#	\
-#	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 
 # System dependencies
 RUN set -eux; \
@@ -13,7 +9,6 @@ RUN set -eux; \
 		git \
 		librsvg2-bin \
 		imagemagick \
-		composer \
 		# Required for SyntaxHighlighting
 		python3 \
 	; \
@@ -111,10 +106,6 @@ RUN set -eux; \
 	\
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
-
-#WORKDIR /var/www/
-#COPY --from=composer /usr/bin/composer /usr/bin/composer
-#RUN composer install
 
 
 CMD ["apache2-foreground"]
