@@ -1,8 +1,5 @@
 FROM php:7.4-apache
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-WORKDIR /var/www/html/mediawiki
-RUN composer install
 
 # System dependencies
 RUN set -eux; \
@@ -110,5 +107,9 @@ RUN set -eux; \
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
 
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+WORKDIR /var/www/html
+
+RUN composer install
 
 CMD ["apache2-foreground"]
