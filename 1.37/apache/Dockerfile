@@ -103,12 +103,4 @@ RUN set -eux; \
 	apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*
 
-RUN adduser -D myuser
-USER myuser
-ENTRYPOINT [“sleep”]
-CMD [“1000”]
-RUN cd /var/www/html/mediawiki; \
-	composer install --no-dev
-
-
 CMD ["apache2-foreground"]
