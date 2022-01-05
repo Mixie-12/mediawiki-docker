@@ -1,5 +1,10 @@
 FROM php:7.4-apache
 
+RUN set -eux; \
+	\
+	curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+
 # System dependencies
 RUN set -eux; \
 	\
